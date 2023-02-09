@@ -4,7 +4,7 @@ const URL = 'https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3';
 
 const query = `
 {
-  transactions(first: 10, orderBy: timestamp, orderDirection: desc) {
+  transactions(first: 50, orderBy: timestamp, orderDirection: desc) {
     id
     timestamp
     swaps {

@@ -17,7 +17,7 @@ const query = `
 const tokensQuery = () => {
   return axios
     .post(URL, { query })
-    .then(({ data }) => console.log(data.data))
+    .then(({ data }) => data.data.tokens)
     .catch((error) => error);
 };
 

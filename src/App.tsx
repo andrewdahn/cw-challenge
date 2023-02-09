@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import Web3 from 'web3';
 import TransactionsTable from './components/TransactionsTable';
 import Transaction from './types/tx';
 import txQuery from './api/tx';
@@ -6,18 +7,28 @@ import txQuery from './api/tx';
 const App: React.FC = () => {
   const [txs, setTxs] = useState<Transaction[]>([]);
 
-  useEffect(() => {
-    fetchTxs();
+  const fetchTxs = useCallback(async (): Promise<void> => {
+    const web3 = new Web3(window.ethereum);
+    const transactions = await txQuery();
+
+    for (let transaction of transactions) {
+      const { value } = await web3.eth.getTransaction(transaction.id);
+      transaction.value = Web3.utils.fromWei(value);
+    }
+
+    setTxs(transactions);
   }, []);
 
-  const fetchTxs = async (): Promise<any> => {
-    let txns = await txQuery();
-    setTxs(txns);
-  };
+  useEffect(() => {
+    fetchTxs();
+  }, [fetchTxs]);
 
   return (
     <div className='container mx-auto'>
       <TransactionsTable transactions={txs} />
+      {/* {currentItems.map((item, index) => (
+        <p key={index}>{item.id}</p>
+      ))} */}
     </div>
   );
 };

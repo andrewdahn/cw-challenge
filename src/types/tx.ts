@@ -8,6 +8,7 @@ interface Transaction {
   id: string;
   swaps: Swaps[];
   timestamp: number;
+  value?: string;
 }
 
 export default Transaction;
