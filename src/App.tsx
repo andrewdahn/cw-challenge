@@ -16,7 +16,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className='container mx-auto'>
       <TransactionsTable transactions={txs} />
     </div>
   );
