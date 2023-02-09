@@ -10,7 +10,6 @@ interface Props {
   Renders swap list item in the Transactions table
 */
 const TransactionsTableSwapListItem: React.FC<Props> = ({ swap }) => {
-  console.log(swap);
   return (
     <>
       {/* Sender */}

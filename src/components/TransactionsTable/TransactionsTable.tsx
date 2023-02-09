@@ -40,15 +40,24 @@ const TransactionsTable: React.FC<Props> = ({ transactions }) => {
         {/* Headers */}
         <thead>
           <tr className='bg-gray-100'>
-            {HEADERS.map((header) => {
-              return <th className='border px-4 py-6'>{header}</th>;
+            {HEADERS.map((header, index) => {
+              return (
+                <th key={index} className='border px-4 py-6'>
+                  {header}
+                </th>
+              );
             })}
           </tr>
         </thead>
         {/* Row entries */}
         <tbody>
-          {currentItems.map((transaction) => {
-            return <TransactionsTableListItems transaction={transaction} />;
+          {currentItems.map((transaction, index) => {
+            return (
+              <TransactionsTableListItems
+                key={index}
+                transaction={transaction}
+              />
+            );
           })}
         </tbody>
       </table>
