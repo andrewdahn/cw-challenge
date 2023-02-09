@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import Web3 from 'web3';
+import PoolsTable from './components/PoolsTable';
 import TransactionsTable from './components/TransactionsTable';
 import { Transaction } from './types';
 import txQuery from './api/tx';
@@ -25,6 +26,7 @@ const App: React.FC = () => {
 
   return (
     <div className='container mx-auto'>
+      <PoolsTable />
       <TransactionsTable transactions={txs} />
     </div>
   );

@@ -24,7 +24,6 @@ const TransactionsTable: React.FC<Props> = ({ transactions }) => {
     indexOfFirstItem,
     indexOfLastItem
   );
-
   const lastPage: number = Math.ceil(transactions.length / itemsPerPage);
 
   const setPrevious = (): void => {

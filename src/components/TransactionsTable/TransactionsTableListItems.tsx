@@ -20,6 +20,7 @@ const TransactionsTableListItems: React.FC<Props> = ({ transaction }) => {
       </td>
       {/* Value of the transaction */}
       <td className='border px-4 py-2'>{transaction.value}</td>
+      {/* Swap information */}
       <td className='border px-4 py-2 divide-y'>
         {transaction.swaps.map((swap, index) => {
           return (

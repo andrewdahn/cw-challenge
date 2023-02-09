@@ -9,8 +9,17 @@ const query = `
     timestamp
     swaps {
       sender
+      amount0
       recipient
       amount1
+      token0 {
+        id
+        symbol
+      }
+      token1 {
+        id
+        symbol
+      }
     }
   }
 }

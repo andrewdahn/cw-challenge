@@ -31,6 +31,13 @@ export const txLink = (id: string) => {
 };
 
 /**
+ * @returns {string} Redirects to token on Etherscan
+ */
+export const tokenLink = (id: string) => {
+  return `https://etherscan.io/token/${id}`;
+};
+
+/**
  * @returns {string} Shorts tx id length
  */
 export const shortenTxId = (id: string) => {
