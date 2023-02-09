@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Web3 from 'web3';
 import TransactionsTable from './components/TransactionsTable';
-import Transaction from './types/tx';
+import { Transaction } from './types';
 import txQuery from './api/tx';
 
 const App: React.FC = () => {
@@ -26,9 +26,6 @@ const App: React.FC = () => {
   return (
     <div className='container mx-auto'>
       <TransactionsTable transactions={txs} />
-      {/* {currentItems.map((item, index) => (
-        <p key={index}>{item.id}</p>
-      ))} */}
     </div>
   );
 };
