@@ -1,7 +1,5 @@
-interface Pool {
+export interface Pool {
   id: string;
-  totalValueLockedETH: string;
   totalValueLockedUSD: string;
+  volumeUSD: number;
 }
-
-export default Pool;

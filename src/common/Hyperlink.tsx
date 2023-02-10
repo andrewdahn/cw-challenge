@@ -7,7 +7,7 @@ interface Props {
 const Hyperlink: React.FC<Props> = ({ link, label, styling }) => {
   return (
     <a href={link} target='_blank' rel='noreferrer' className={styling}>
-      <span className='px-1 mx-1 outline rounded'>{label}</span>
+      <span className='px-1 mx-1'>{label}</span>
     </a>
   );
 };

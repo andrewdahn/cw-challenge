@@ -2,11 +2,13 @@ import { useState, useEffect, useCallback } from 'react';
 import Web3 from 'web3';
 import PoolsTable from './components/PoolsTable';
 import TransactionsTable from './components/TransactionsTable';
-import { Transaction } from './types';
+import { Transaction, Pool } from './types';
 import txQuery from './api/tx';
+import { poolsQuery } from './api/pool';
 
 const App: React.FC = () => {
   const [txs, setTxs] = useState<Transaction[]>([]);
+  const [pools, setPools] = useState<Pool[]>([]);
 
   const fetchTxs = useCallback(async (): Promise<void> => {
     const web3 = new Web3(window.ethereum);
@@ -20,13 +22,19 @@ const App: React.FC = () => {
     setTxs(transactions);
   }, []);
 
+  const fetchPools = useCallback(async (): Promise<void> => {
+    const pools = await poolsQuery();
+    setPools(pools);
+  }, []);
+
   useEffect(() => {
     fetchTxs();
-  }, [fetchTxs]);
+    fetchPools();
+  }, [fetchTxs, fetchPools]);
 
   return (
     <div className='container mx-auto'>
-      <PoolsTable />
+      <PoolsTable pools={pools} />
       <TransactionsTable transactions={txs} />
     </div>
   );

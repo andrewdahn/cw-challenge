@@ -43,3 +43,10 @@ export const tokenLink = (id: string) => {
 export const shortenTxId = (id: string) => {
   return `${id.substring(0, 14)}...`;
 };
+
+/**
+ * @returns {string} Redirects to pool info on Uniswap
+ */
+export const poolInfo = (id: string) => {
+  return `https://info.uniswap.org/#/pools/${id}`;
+};

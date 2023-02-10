@@ -14,13 +14,13 @@ const TransactionsTableSwapListItem: React.FC<Props> = ({ swap }) => {
     <>
       {/* Sender */}
       <div>
-        <span>Sender </span>
+        <span>Sender</span>
         <Hyperlink
           link={addressLink(swap.recipient)}
           label={formatAddr(swap.sender)}
           styling='text-blue-400'
         />
-        <span className='text-slate-800 font-light'> for</span>
+        <span>for</span>
         <p className='font-medium'>
           {swap.amount0}
           <Hyperlink
@@ -32,13 +32,13 @@ const TransactionsTableSwapListItem: React.FC<Props> = ({ swap }) => {
       </div>
       {/* Recipient */}
       <div>
-        <span>Recipient </span>
+        <span>Recipient</span>
         <Hyperlink
           link={addressLink(swap.recipient)}
           label={formatAddr(swap.recipient)}
           styling='text-blue-400'
         />
-        <span className='text-slate-800 font-light'> for</span>
+        <span>for</span>
         <p className='font-medium'>
           {swap.amount1}
           <Hyperlink
