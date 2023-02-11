@@ -25,22 +25,21 @@ const URL = 'https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3';
 
 // I ended up doing a work around solution to get to the closest values possible
 
-const query = `
-{
-  pools(orderBy: totalValueLockedUSD, first: 10, orderDirection: desc, skip: 4) {
-    id
-    totalValueLockedUSD
-  }
-}
-`;
-
 export const poolsQuery = () => {
+  const query = `
+    {
+      pools(orderBy: totalValueLockedUSD, first: 10, orderDirection: desc, skip: 4) {
+        id
+        totalValueLockedUSD
+      }
+    }
+  `;
   return axios
     .post(URL, { query })
     .then(({ data }) => {
       let pools = data.data.pools;
       pools.map(async (pool) => {
-        let volume = await getVolumes(pool.id);
+        let volume = await volumeQuery(pool.id);
         if (volume.length !== 0) {
           const { volumeUSD } = find(volume, 'volumeUSD');
           pool.volumeUSD = volumeUSD;
@@ -52,11 +51,11 @@ export const poolsQuery = () => {
     .catch((error) => error);
 };
 
-const getVolumes = (id) => {
+const volumeQuery = (id) => {
   const start = moment().subtract(1, 'day').startOf('day').unix();
   const end = moment().subtract(1, 'day').endOf('day').unix();
 
-  const volumeQuery = `
+  const query = `
     {
       poolDayDatas(
         orderBy: tvlUSD
@@ -73,7 +72,7 @@ const getVolumes = (id) => {
   `;
 
   return axios
-    .post(URL, { query: volumeQuery })
+    .post(URL, { query })
     .then(({ data }) => data.data.poolDayDatas)
     .catch((error) => error);
 };
