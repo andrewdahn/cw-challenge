@@ -1,24 +1,31 @@
-const axios = require('axios');
+import axios from 'axios';
+import moment from 'moment';
 
 const URL = 'https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3';
+const start = moment().subtract(2, 'day').unix();
 
 const query = `
   {
-    tokens(orderDirection: desc) {
+    tokens(first: 10, orderBy: totalValueLockedUSD, orderDirection: desc) {
       id
       name
       symbol
-      derivedETH
-      totalValueLocked
+      totalValueLockedUSD
+      tokenDayData(
+        first: 2
+        orderDirection: desc
+        where: {date_gte: ${start}}
+        orderBy: date
+      ) {
+        priceUSD
+      }
     }
   }
 `;
 
-const tokensQuery = () => {
+export const tokensQuery = () => {
   return axios
     .post(URL, { query })
     .then(({ data }) => data.data.tokens)
     .catch((error) => error);
 };
-
-export default tokensQuery;

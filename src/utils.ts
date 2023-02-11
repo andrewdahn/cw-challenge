@@ -50,3 +50,21 @@ export const shortenTxId = (id: string) => {
 export const poolInfo = (id: string) => {
   return `https://info.uniswap.org/#/pools/${id}`;
 };
+
+/**
+ * @returns {string} Redirects to token info on Uniswap
+ */
+export const tokenInfo = (id: string) => {
+  return `https://info.uniswap.org/#/tokens/${id}`;
+};
+
+/**
+ * @returns {string} Formats to readable USD value
+ */
+export const formatFiat = (value: any) => {
+  if (!value) return '0';
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  }).format(parseFloat(value));
+};

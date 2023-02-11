@@ -27,7 +27,7 @@ const URL = 'https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3';
 
 const query = `
 {
-  pools(orderBy: totalValueLockedUSD, first: 10, orderDirection: desc) {
+  pools(orderBy: totalValueLockedUSD, first: 10, orderDirection: desc, skip: 4) {
     id
     totalValueLockedUSD
   }

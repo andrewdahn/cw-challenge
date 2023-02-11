@@ -36,7 +36,7 @@ const TransactionsTable: React.FC<Props> = ({ transactions }) => {
 
   return (
     <div>
-      <table className='min-w-full'>
+      <table className='min-w-full py-5'>
         {/* Headers */}
         <thead>
           <tr className='bg-gray-100'>

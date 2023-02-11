@@ -25,11 +25,9 @@ const query = `
 }
 `;
 
-const txQuery = () => {
+export const txQuery = () => {
   return axios
     .post(URL, { query })
     .then(({ data }) => data.data.transactions)
     .catch((error) => error);
 };
-
-export default txQuery;

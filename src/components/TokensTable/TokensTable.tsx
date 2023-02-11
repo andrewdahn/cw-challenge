@@ -1,15 +1,16 @@
-import { Pool } from '../../types';
-import Hyperlink from '../../common/Hyperlink';
-import { poolInfo } from '../../utils';
+import { Token } from '../../types';
 import { formatFiat } from '../../utils';
+import { tokenInfo } from '../../utils';
+import Hyperlink from '../../common/Hyperlink';
 
 interface Props {
-  pools: Pool[];
+  tokens: Token[];
 }
 
-const PoolsTable: React.FC<Props> = ({ pools }) => {
-  const HEADERS: string[] = ['Pool', 'Total Value Locked', '24 HR Volume'];
+const TokensTable: React.FC<Props> = ({ tokens }) => {
+  const HEADERS: string[] = ['Token', 'Price', 'Change', 'Total Value Locked'];
 
+  console.log('tokens', tokens);
   return (
     <div className='py-5'>
       <table className='min-w-full'>
@@ -27,21 +28,24 @@ const PoolsTable: React.FC<Props> = ({ pools }) => {
         </thead>
         {/* Row entries */}
         <tbody>
-          {pools.map((pool, index) => {
+          {tokens.map((token, index) => {
+            const tokenPrice =
+              token.tokenDayData.length !== 0
+                ? formatFiat(token.tokenDayData[0].priceUSD)
+                : '0';
             return (
               <tr key={index} className='even:bg-gray-100 odd:bg-white'>
                 <td className='border px-4 py-2'>
                   <Hyperlink
-                    link={poolInfo(pool.id)}
-                    label={pool.id}
+                    link={tokenInfo(token.id)}
+                    label={`${token.name} (${token.symbol})`}
                     styling='text-blue-400'
                   />
                 </td>
+                <td className='border px-4 py-2'>{tokenPrice}</td>
+                <td className='border px-4 py-2'>{5}</td>
                 <td className='border px-4 py-2'>
-                  {formatFiat(pool.totalValueLockedUSD)}
-                </td>
-                <td className='border px-4 py-2'>
-                  {formatFiat(pool.volumeUSD)}
+                  {formatFiat(token.totalValueLockedUSD)}
                 </td>
               </tr>
             );
@@ -52,4 +56,4 @@ const PoolsTable: React.FC<Props> = ({ pools }) => {
   );
 };
 
-export default PoolsTable;
+export default TokensTable;
