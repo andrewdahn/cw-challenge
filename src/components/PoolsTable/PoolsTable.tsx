@@ -8,7 +8,11 @@ interface Props {
 }
 
 const PoolsTable: React.FC<Props> = ({ pools }) => {
-  const HEADERS: string[] = ['Pool', 'Total Value Locked', '24 HR Volume'];
+  const HEADERS: string[] = [
+    'Pool',
+    'Total Value Locked ($)',
+    '24 HR Volume ($)',
+  ];
 
   return (
     <div className='py-5'>

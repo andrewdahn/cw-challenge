@@ -6,7 +6,7 @@ const start = moment().subtract(2, 'day').unix();
 
 const query = `
   {
-    tokens(first: 10, orderBy: totalValueLockedUSD, orderDirection: desc) {
+    tokens(first: 10, orderBy: totalValueLockedUSD, orderDirection: desc, skip: 2) {
       id
       name
       symbol

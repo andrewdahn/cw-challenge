@@ -8,9 +8,21 @@ interface Props {
 }
 
 const TokensTable: React.FC<Props> = ({ tokens }) => {
-  const HEADERS: string[] = ['Token', 'Price', 'Change', 'Total Value Locked'];
+  const HEADERS: string[] = [
+    'Token',
+    'Price ($)',
+    'Change (%)',
+    'Total Value Locked ($)',
+  ];
 
-  console.log('tokens', tokens);
+  const getPercentageChange = (oldPrice: string, newPrice: string) => {
+    const x = parseFloat(oldPrice);
+    const y = parseFloat(newPrice);
+    let decreaseValue = x - y;
+    let result = (decreaseValue / x) * 100;
+    return result;
+  };
+
   return (
     <div className='py-5'>
       <table className='min-w-full'>
@@ -33,6 +45,8 @@ const TokensTable: React.FC<Props> = ({ tokens }) => {
               token.tokenDayData.length !== 0
                 ? formatFiat(token.tokenDayData[0].priceUSD)
                 : '0';
+            const priceChange = token.tokenDayData.map((a) => a.priceUSD);
+
             return (
               <tr key={index} className='even:bg-gray-100 odd:bg-white'>
                 <td className='border px-4 py-2'>
@@ -43,7 +57,11 @@ const TokensTable: React.FC<Props> = ({ tokens }) => {
                   />
                 </td>
                 <td className='border px-4 py-2'>{tokenPrice}</td>
-                <td className='border px-4 py-2'>{5}</td>
+                <td className='border px-4 py-2'>
+                  {token.tokenDayData.length !== 0
+                    ? getPercentageChange(priceChange[0], priceChange[1])
+                    : '0'}
+                </td>
                 <td className='border px-4 py-2'>
                   {formatFiat(token.totalValueLockedUSD)}
                 </td>
