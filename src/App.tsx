@@ -23,26 +23,41 @@ const App: React.FC = () => {
     }
 
     setTxs(transactions);
+    return transactions;
   }, []);
 
   const fetchTokens = useCallback(async (): Promise<void> => {
     const tokens = await tokensQuery();
     setTokens(tokens);
+    return tokens;
   }, []);
 
   const fetchPools = useCallback(async (): Promise<void> => {
     const pools = await poolsQuery();
     setPools(pools);
+    return pools;
   }, []);
 
+  const fetchAll = useCallback(async () => {
+    const fetches = [fetchPools(), fetchTokens(), fetchTxs()];
+    const data = await Promise.all(fetches);
+    return data;
+  }, [fetchPools, fetchTokens, fetchTxs]);
+
   useEffect(() => {
-    fetchTxs();
-    fetchTokens();
-    fetchPools();
-  }, [fetchTxs, fetchTokens, fetchPools]);
+    fetchAll();
+  }, [fetchAll]);
 
   return (
-    <div className='container mx-auto'>
+    <div className='py-5 container mx-auto'>
+      <div>
+        <button
+          className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
+          onClick={fetchAll}
+        >
+          Fetch All Data
+        </button>
+      </div>
       <PoolsTable pools={pools} />
       <TokensTable tokens={tokens} />
       <TransactionsTable transactions={txs} />
