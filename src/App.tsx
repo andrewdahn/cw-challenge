@@ -9,6 +9,7 @@ import { txQuery } from './api/tx';
 import { poolsQuery } from './api/pools';
 import { tokensQuery } from './api/tokens';
 
+/* Main */
 const App: React.FC = () => {
   const [pools, setPools] = useState<Pool[]>([]);
   const [tokens, setTokens] = useState<Token[]>([]);
@@ -45,6 +46,7 @@ const App: React.FC = () => {
     await Promise.all(fetches);
   }, [fetchPools, fetchTokens, fetchTxs]);
 
+  /* fetchs on load */
   useEffect(() => {
     fetchAll();
   }, [fetchAll]);

@@ -2,6 +2,9 @@ interface Props {
   fetchAll: () => Promise<void>;
 }
 
+/*
+  Button to fetch all the data
+*/
 const FetchAllButton: React.FC<Props> = ({ fetchAll }) => {
   return (
     <div>

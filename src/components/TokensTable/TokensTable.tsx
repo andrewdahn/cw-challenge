@@ -61,6 +61,7 @@ const TokensTable: React.FC<Props> = ({ tokens }) => {
         {/* Row entries */}
         <tbody>
           {currentItems.map((token, index) => {
+            /* Calculating token price and change in percentage */
             const tokenPrice =
               token.tokenDayData.length !== 0
                 ? formatFiat(token.tokenDayData[0].priceUSD)

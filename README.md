@@ -1,5 +1,7 @@
 # CM Full Stack Challange (1)
 
+Note: I used `window.ethereum` as the provider for the web3 calls so please have MetaMask or another web3 wallet extension installed so data is fetched.
+
 # Project Setup
 
 ### `npm install`
@@ -8,13 +10,13 @@ To install packages
 
 ### `npm start`
 
-Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### `npm test`
 
-### Check List
+To run basic tests I wrote for the API calls using GraphQl queries
+
+# Check List
 
 - [x] Inspect what data / queries will be required using [hosted V3 subgraph explorer](https://thegraph.com/hosted-service/subgraph/uniswap/uniswap-v3)
 
