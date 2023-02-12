@@ -3,16 +3,30 @@ import Web3 from 'web3';
 import PoolsTable from './components/PoolsTable';
 import TokensTable from './components/TokensTable';
 import TransactionsTable from './components/TransactionsTable';
-import { Transaction, Pool } from './types';
+import FetchAllButton from './components/FetchAllButton';
+import { Pool, Token, Transaction } from './types';
 import { txQuery } from './api/tx';
-import { poolsQuery } from './api/pool';
+import { poolsQuery } from './api/pools';
 import { tokensQuery } from './api/tokens';
 
 const App: React.FC = () => {
-  const [txs, setTxs] = useState<Transaction[]>([]);
   const [pools, setPools] = useState<Pool[]>([]);
-  const [tokens, setTokens] = useState([]);
+  const [tokens, setTokens] = useState<Token[]>([]);
+  const [txs, setTxs] = useState<Transaction[]>([]);
 
+  /* fetches pools data */
+  const fetchPools = useCallback(async (): Promise<void> => {
+    const pools = await poolsQuery();
+    setPools(pools);
+  }, []);
+
+  /* fetches tokens data */
+  const fetchTokens = useCallback(async (): Promise<void> => {
+    const tokens = await tokensQuery();
+    setTokens(tokens);
+  }, []);
+
+  /* fetches transactions data */
   const fetchTxs = useCallback(async (): Promise<void> => {
     const web3 = new Web3(window.ethereum);
     const transactions = await txQuery();
@@ -23,25 +37,12 @@ const App: React.FC = () => {
     }
 
     setTxs(transactions);
-    return transactions;
   }, []);
 
-  const fetchTokens = useCallback(async (): Promise<void> => {
-    const tokens = await tokensQuery();
-    setTokens(tokens);
-    return tokens;
-  }, []);
-
-  const fetchPools = useCallback(async (): Promise<void> => {
-    const pools = await poolsQuery();
-    setPools(pools);
-    return pools;
-  }, []);
-
-  const fetchAll = useCallback(async () => {
+  /* fetches all data */
+  const fetchAll = useCallback(async (): Promise<void> => {
     const fetches = [fetchPools(), fetchTokens(), fetchTxs()];
-    const data = await Promise.all(fetches);
-    return data;
+    await Promise.all(fetches);
   }, [fetchPools, fetchTokens, fetchTxs]);
 
   useEffect(() => {
@@ -50,14 +51,7 @@ const App: React.FC = () => {
 
   return (
     <div className='py-5 container mx-auto'>
-      <div>
-        <button
-          className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
-          onClick={fetchAll}
-        >
-          Fetch All Data
-        </button>
-      </div>
+      <FetchAllButton fetchAll={fetchAll} />
       <PoolsTable pools={pools} />
       <TokensTable tokens={tokens} />
       <TransactionsTable transactions={txs} />

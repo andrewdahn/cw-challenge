@@ -34,6 +34,7 @@ const TokensTable: React.FC<Props> = ({ tokens }) => {
     setCurrentPage(currentPage + 1);
   };
 
+  /* Calculates change between old and new price */
   const getPercentageChange = (oldPrice: string, newPrice: string) => {
     const x = parseFloat(oldPrice);
     const y = parseFloat(newPrice);
